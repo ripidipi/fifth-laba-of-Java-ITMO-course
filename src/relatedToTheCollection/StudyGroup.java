@@ -12,7 +12,8 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Class of objects in collection
+ * Class representing a study group. This class implements the Comparable interface to allow comparison
+ * of study groups based on their unique ID.
  */
 public class StudyGroup implements Comparable<StudyGroup> {
 
@@ -26,6 +27,16 @@ public class StudyGroup implements Comparable<StudyGroup> {
     private final Semester semester;
     private final Person groupAdmin;
 
+    /**
+     * Constructs a StudyGroup with a generated unique ID.
+     *
+     * @param name The name of the study group.
+     * @param coordinates The coordinates of the study group.
+     * @param studentCount The number of students in the group.
+     * @param formOfEducation The form of education of the group.
+     * @param semester The semester of the group.
+     * @param groupAdmin The admin of the group.
+     */
     public StudyGroup(String name, Coordinates coordinates,
                       Integer studentCount, FormOfEducation formOfEducation,
                       Semester semester, Person groupAdmin) {
@@ -45,6 +56,17 @@ public class StudyGroup implements Comparable<StudyGroup> {
         this.groupAdmin = groupAdmin;
     }
 
+    /**
+     * Constructs a StudyGroup with a provided unique ID.
+     *
+     * @param id The unique ID of the study group.
+     * @param name The name of the study group.
+     * @param coordinates The coordinates of the study group.
+     * @param studentCount The number of students in the group.
+     * @param formOfEducation The form of education of the group.
+     * @param semester The semester of the group.
+     * @param groupAdmin The admin of the group.
+     */
     public StudyGroup(Integer id, String name, Coordinates coordinates, Integer studentCount,
                       FormOfEducation formOfEducation,
                       Semester semester, Person groupAdmin) {
@@ -61,14 +83,22 @@ public class StudyGroup implements Comparable<StudyGroup> {
     }
 
     /**
-     * @param other the object to be compared.
-     * @return comparison of objects
+     * Compares this StudyGroup to another StudyGroup based on the ID.
+     *
+     * @param other The StudyGroup to compare this one to.
+     * @return A negative integer, zero, or a positive integer as this ID is less than, equal to, or greater than the ID of the other StudyGroup.
      */
     @Override
     public int compareTo(StudyGroup other) {
         return this.id.compareTo(other.id);
     }
 
+    /**
+     * Compares this StudyGroup to another object for equality. Two StudyGroups are equal if their IDs are the same.
+     *
+     * @param o The object to compare to.
+     * @return true if the IDs are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,12 +107,24 @@ public class StudyGroup implements Comparable<StudyGroup> {
         return Objects.equals(id, that.id);
     }
 
+    /**
+     * Returns a hash code value for this StudyGroup. The hash code is based on the ID, name, coordinates,
+     * creation date, student count, form of education, semester, and group admin.
+     *
+     * @return The hash code value for this StudyGroup.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id, name, coordinates, creationDate, studentCount,
-                            formOfEducation, semester, groupAdmin);
+                formOfEducation, semester, groupAdmin);
     }
 
+    /**
+     * Returns a string representation of this StudyGroup. The string includes the ID, name, coordinates,
+     * creation date, student count, form of education, semester, and group admin.
+     *
+     * @return The string representation of this StudyGroup.
+     */
     @Override
     public String toString() {
         return "StudyGroup {" +
@@ -91,44 +133,97 @@ public class StudyGroup implements Comparable<StudyGroup> {
                 "\n" + coordinates +
                 "\ncreation date: " + getCreationDateString() +
                 "\nstudent count: " + studentCount +
-                "\nfrom of education: " + formOfEducation +
+                "\nform of education: " + formOfEducation +
                 "\nsemester: " + semester +
                 "\n" + groupAdmin + '}';
     }
 
-    public Integer getId() {return id;}
+    /**
+     * Gets the ID of the StudyGroup.
+     *
+     * @return The ID of the StudyGroup.
+     */
+    public Integer getId() { return id; }
 
-    public String getName() {return name;}
+    /**
+     * Gets the name of the StudyGroup.
+     *
+     * @return The name of the StudyGroup.
+     */
+    public String getName() { return name; }
 
-    public Coordinates getCoordinates() {return coordinates;}
+    /**
+     * Gets the coordinates of the StudyGroup.
+     *
+     * @return The coordinates of the StudyGroup.
+     */
+    public Coordinates getCoordinates() { return coordinates; }
 
-    public java.time.LocalDateTime getCreationDate() {return creationDate;}
+    /**
+     * Gets the creation date of the StudyGroup.
+     *
+     * @return The creation date of the StudyGroup.
+     */
+    public java.time.LocalDateTime getCreationDate() { return creationDate; }
 
-    public String  getCreationDateString() {
+    /**
+     * Gets the creation date of the StudyGroup as a formatted string.
+     *
+     * @return The creation date as a string in the format dd/MM/yyyy HH:mm:ss.
+     */
+    public String getCreationDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return creationDate.format(formatter);
     }
 
-    public Integer getStudentCount() {return studentCount;}
+    /**
+     * Gets the student count of the StudyGroup.
+     *
+     * @return The number of students in the StudyGroup.
+     */
+    public Integer getStudentCount() { return studentCount; }
 
-    public FormOfEducation getFormOfEducation() { return formOfEducation;}
+    /**
+     * Gets the form of education of the StudyGroup.
+     *
+     * @return The form of education of the StudyGroup.
+     */
+    public FormOfEducation getFormOfEducation() { return formOfEducation; }
 
-    public Semester getSemester() { return semester;}
+    /**
+     * Gets the semester of the StudyGroup.
+     *
+     * @return The semester of the StudyGroup.
+     */
+    public Semester getSemester() { return semester; }
 
-    public Person getGroupAdmin() { return groupAdmin;}
+    /**
+     * Gets the group admin of the StudyGroup.
+     *
+     * @return The group admin of the StudyGroup.
+     */
+    public Person getGroupAdmin() { return groupAdmin; }
 
+    /**
+     * Checks if the StudyGroup object has all required fields filled.
+     *
+     * @param studyGroup The StudyGroup object to check.
+     * @return true if the StudyGroup is valid, false otherwise.
+     */
     private static boolean isRightFill(StudyGroup studyGroup) {
-        if (studyGroup == null) {return false;}
+        if (studyGroup == null) { return false; }
         return Person.isRightFill(studyGroup.groupAdmin) && Coordinates.isRightFill(studyGroup.coordinates) &&
                 studyGroup.name != null && studyGroup.creationDate != null && studyGroup.studentCount != null &&
                 studyGroup.formOfEducation != null && studyGroup.semester != null && studyGroup.id != null;
     }
 
     /**
-     * Input manager to create object with class StudyGroup
-     * @return object with class StudyGroup
+     * Input manager for creating a StudyGroup object from user input.
+     *
+     * @param Arg Optional argument to specify the ID.
+     * @return A new StudyGroup object created from the user input.
      */
-    public static StudyGroup Input(String... Arg) {
+    public static StudyGroup input(String... Arg) {
         try {
             Integer id = null;
             if (Arg.length > 0) {
@@ -136,11 +231,11 @@ public class StudyGroup implements Comparable<StudyGroup> {
             }
             System.out.print("Enter information about study group");
             String name = PrimitiveDataTransform.input("name", String.class);
-            Coordinates coordinates = Coordinates.Input();
+            Coordinates coordinates = Coordinates.input();
             Integer studentCount = PrimitiveDataTransform.input("students count", Integer.class);
-            FormOfEducation formOfEducation = EnumInput.InputFromConsole(FormOfEducation.class);
-            Semester semester = EnumInput.InputFromConsole(Semester.class);
-            Person groupAdmin = Person.Input();
+            FormOfEducation formOfEducation = EnumInput.inputFromConsole(FormOfEducation.class);
+            Semester semester = EnumInput.inputFromConsole(Semester.class);
+            Person groupAdmin = Person.input();
             if (id != null) {
                 return new StudyGroup(id, name, coordinates, studentCount,
                         formOfEducation, semester, groupAdmin);
@@ -150,26 +245,33 @@ public class StudyGroup implements Comparable<StudyGroup> {
 
         } catch (Exception e) {
             System.out.println("Invalid input. Try again.");
-            return Input(Arg);
+            return input(Arg);
         }
     }
 
-    public static StudyGroup InputFromFile(String[] inputSplit, boolean notAdded) {
+    /**
+     * Input manager for creating a StudyGroup object from data read from a file.
+     *
+     * @param inputSplit The input data split into parts.
+     * @param notAdded Flag to indicate if the ID should not be added to the list of IDs.
+     * @return A new StudyGroup object created from the file data.
+     */
+    public static StudyGroup inputFromFile(String[] inputSplit, boolean notAdded) {
         try {
             Integer id = Integer.parseInt(inputSplit[0]);
             String name = PrimitiveDataTransform.inputFromFile("name", inputSplit[1], String.class);
-            Coordinates coordinates = Coordinates.InputFromFile(inputSplit[2], inputSplit[3]);
+            Coordinates coordinates = Coordinates.inputFromFile(inputSplit[2], inputSplit[3]);
             Integer studentCount = PrimitiveDataTransform.inputFromFile("students count", inputSplit[4],
-                                                                            Integer.class);
+                    Integer.class);
             FormOfEducation formOfEducation = EnumInput.TransformToEnum(FormOfEducation.class, inputSplit[5]);
             Semester semester = EnumInput.TransformToEnum(Semester.class, inputSplit[6]);
-            Person groupAdmin = Person.InputFromFile(inputSplit[7], inputSplit[8], inputSplit[9], inputSplit[10]);
+            Person groupAdmin = Person.inputFromFile(inputSplit[7], inputSplit[8], inputSplit[9], inputSplit[10]);
             if (IDs.containsKey(id) & !notAdded) {
                 id = null;
                 System.out.print("Id is reserved ");
             }
             StudyGroup studyGroup = new StudyGroup(id, name, coordinates, studentCount,
-                                                    formOfEducation, semester, groupAdmin);
+                    formOfEducation, semester, groupAdmin);
             if (!isRightFill(studyGroup)) {
                 throw new CommandDataFromTheFileIsIncorrect(String.join(",", inputSplit));
             }
@@ -180,14 +282,3 @@ public class StudyGroup implements Comparable<StudyGroup> {
         return null;
     }
 }
-
-
-
-
-
-
-
-
-
-
-

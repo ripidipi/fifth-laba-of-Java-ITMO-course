@@ -2,21 +2,20 @@ package commands;
 
 import relatedToTheCollection.Collection;
 
+/**
+ * Command that provides information about the collection.
+ */
 public class Info implements Helpable {
 
     /**
-     * Print info about collection (type, initialization date, number of elements)
+     * Prints information about the collection (type, initialization date, number of elements).
      */
     public static void info() {
         System.out.println(Collection.getInstance().getInfo());
     }
 
-    /**
-     * add an information about info
-     * @return String with information about command
-     */
+    @Override
     public String getHelp() {
-        return "Return information about the collection\n" +
-                "(type, initialization date, number of elements)";
+        return "Returns information about the collection (type, initialization date, number of elements).";
     }
 }

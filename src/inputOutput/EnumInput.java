@@ -4,19 +4,19 @@ import exeptions.IncorrectConstant;
 import java.util.Scanner;
 
 /**
- * class with static methods for enum value readings
+ * A utility class for reading enum values from user input.
  */
 public class EnumInput {
 
-
     /**
-     * Input manager for enums
-     * @param enumType show type of enum the object that is expected to be received from console
-     * @return one of the constant enum values
-     * @param <T>  show type of enum expected to work with
-     * @throws IncorrectConstant if input isn't a valid value from the enum
+     * Reads an enum value from the console.
+     *
+     * @param enumType The enum class type that is expected to be received from the console.
+     * @param <T> The type of the enum.
+     * @return One of the constant enum values.
+     * @throws IncorrectConstant if the input isn't a valid value from the enum.
      */
-    public static <T extends Enum<T>> T InputFromConsole(Class<T> enumType) throws IncorrectConstant {
+    public static <T extends Enum<T>> T inputFromConsole(Class<T> enumType) throws IncorrectConstant {
         try {
             T[] enumConstants = enumType.getEnumConstants();
             StringBuilder enumValues = new StringBuilder();
@@ -30,10 +30,18 @@ public class EnumInput {
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
         }
-
-        return InputFromConsole(enumType);
+        return inputFromConsole(enumType);
     }
 
+    /**
+     * Converts a string input to an enum value.
+     *
+     * @param enumType The enum class type to convert to.
+     * @param input The string input to convert.
+     * @param <T> The type of the enum.
+     * @return The corresponding enum value if valid.
+     * @throws IncorrectConstant if the input isn't a valid value from the enum.
+     */
     public static <T extends Enum<T>> T TransformToEnum(Class<T> enumType, String input) throws IncorrectConstant {
         try {
             return Enum.valueOf(enumType, input.toUpperCase());
@@ -42,8 +50,6 @@ public class EnumInput {
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
         }
-        return InputFromConsole(enumType);
+        return inputFromConsole(enumType);
     }
-
-
 }

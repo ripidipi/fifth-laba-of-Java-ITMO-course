@@ -2,15 +2,19 @@ package commands;
 
 import relatedToTheCollection.Collection;
 
-public class Save implements Helpable{
+/**
+ * Command that saves the collection data to a file.
+ */
+public class Save implements Helpable {
 
-    public  static void save() {
-        Collection.getInstance();
+    /**
+     * Saves the collection data to a file.
+     */
+    public static void save() {
         Collection.output();
     }
 
     public String getHelp() {
-        return "Save a file";
+        return "Save the collection data to a file";
     }
-
 }

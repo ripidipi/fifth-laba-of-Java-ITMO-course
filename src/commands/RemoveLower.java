@@ -8,33 +8,49 @@ import relatedToTheCollection.StudyGroup;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class RemoveLower {
+/**
+ * Command that removes study groups lower than a given one from the collection.
+ */
+public class RemoveLower implements Helpable{
 
+    /**
+     * Removes study groups lower than the specified one, based on user input.
+     */
     public static void removeLower() {
         Integer id = PrimitiveDataTransform.input("id", Integer.class);
-        StudyGroup studyGroup = StudyGroup.Input(id.toString());
+        StudyGroup studyGroup = StudyGroup.input(id.toString());
         try {
-            removeLoverFromCollection(studyGroup);
+            removeLowerFromCollection(studyGroup);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Removes study groups lower than the specified one, based on input from a file.
+     *
+     * @param input The input string containing the data to create the study group.
+     */
     public static void removeLowerFromFile(String input) {
         try {
             String[] inputSplit = input.split(",");
             if (inputSplit.length != 11) {
                 throw new InsufficientNumberOfArguments("");
             }
-            StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit, true);
+            StudyGroup studyGroup = StudyGroup.inputFromFile(inputSplit, true);
             if (studyGroup == null) return;
-            removeLoverFromCollection(studyGroup);
+            removeLowerFromCollection(studyGroup);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static void removeLoverFromCollection(StudyGroup studyGroup) {
+    /**
+     * Removes study groups lower than the given one from the collection.
+     *
+     * @param studyGroup The study group to compare with.
+     */
+    private static void removeLowerFromCollection(StudyGroup studyGroup) {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         ArrayList<StudyGroup> toRemove = new ArrayList<>();
         for (StudyGroup sG : collection) {
@@ -47,4 +63,8 @@ public class RemoveLower {
         }
     }
 
+    @Override
+    public String getHelp() {
+        return "Removes all study groups lower than the specified one.";
+    }
 }

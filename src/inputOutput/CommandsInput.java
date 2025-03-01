@@ -9,8 +9,17 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Function;
 
+/**
+ * Handles command input from the console or a file.
+ */
 public class CommandsInput {
 
+    /**
+     * Checks if a given string can be converted to an enum value of {@link Commands}.
+     *
+     * @param s the string to check
+     * @return true if the string corresponds to a valid command, false otherwise
+     */
     private static boolean convertToEnum(String s) {
         try {
             Enum.valueOf(Commands.class, s.toUpperCase());
@@ -20,6 +29,12 @@ public class CommandsInput {
         }
     }
 
+    /**
+     * Processes and executes a command if it is valid.
+     *
+     * @param inputSplit an array containing the command and its arguments
+     * @return null
+     */
     public static Void isCommand(String[] inputSplit) {
         try {
             if (convertToEnum(inputSplit[0])) {
@@ -38,6 +53,9 @@ public class CommandsInput {
         return null;
     }
 
+    /**
+     * Reads and processes command input from the console.
+     */
     public static void inputFromConsole() {
         try {
             Scanner scanner = new Scanner(System.in);
@@ -47,9 +65,14 @@ public class CommandsInput {
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid input for command. Try again");
         }
-
     }
 
+    /**
+     * Reads and processes command input from a file.
+     *
+     * @param filePath the path to the input file
+     * @param handler  a function to process each line of input
+     */
     public static void inputFromFile(String filePath, Function<String[], Void> handler) {
         try {
             if (filePath == null || filePath.isEmpty()) {
